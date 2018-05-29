@@ -29,34 +29,34 @@ This project with the embedded HSQLDB base.
 #### Curl Commands
 
 * #####Get all restaurants
-`curl -s http://localhost:8080/voting/rest/admin/restaurants`
+`curl -s http://localhost:8080/voting/rest/admin/restaurants --user admin@gmail.com:admin`
 
 * #####Get restaurants with rating for current date (sort by rating and name fields)
-`curl -s http://localhost:8080/voting/rest/restaurants`
+`curl -s http://localhost:8080/voting/rest/restaurants --user user1@yandex.ru:password`
 
 * #####Get restaurant with rating and menu for current day
-`curl -s http://localhost:8080/voting/rest/restaurants/1000`
+`curl -s http://localhost:8080/voting/rest/restaurants/1000 --user user1@yandex.ru:password`
 
 * #####Create a new restaurant
-`curl -s -X POST -d '{"name": "NewRestaurant"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting/rest/admin/restaurants`
+`curl -s -X POST -d '{"name": "NewRestaurant"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting/rest/admin/restaurants --user admin@gmail.com:admin`
 
 * #####Delete the restaurant (with id 1000)
-`curl -s -X DELETE http://localhost:8080/voting/rest/admin/restaurants/1000`
+`curl -s -X DELETE http://localhost:8080/voting/rest/admin/restaurants/1000 --user admin@gmail.com:admin`
  
 * #####Create dishes (for restaurant with id 1001)
-`curl -s -X POST -d '{"name": "NewDish", "price": 299}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting/rest/admin/restaurants/1001/dishes`
+`curl -s -X POST -d '{"name": "NewDish", "price": 299}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting/rest/admin/restaurants/1001/dishes --user admin@gmail.com:admin`
   
 * #####Get users
-`curl -s http://localhost:8080/voting/rest/admin/users`
+`curl -s http://localhost:8080/voting/rest/admin/users --user admin@gmail.com:admin`
   
 * #####Get user (with id 1000)
-`curl -s http://localhost:8080/voting/rest/admin/users/1000`
+`curl -s http://localhost:8080/voting/rest/admin/users/1000 --user admin@gmail.com:admin`
    
 * #####Create a new user
-`curl -s -X POST -d '{"name": "NewUser", "password": "user123", "email": "newuser@email.com"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting/rest/admin/users`
+`curl -s -X POST -d '{"name": "NewUser", "password": "user123", "email": "newuser@email.com"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting/rest/admin/users --user admin@gmail.com:admin`
 
 * #####Delete user (with id 1000)
-`curl -s -X DELETE http://localhost:8080/voting/rest/admin/users/1000`
+`curl -s -X DELETE http://localhost:8080/voting/rest/admin/users/1000 --user admin@gmail.com:admin`
 
 * #####Vote for the restaurant's menu (with restaurantId 1000)
-`curl -s -X POST -d '{}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting/rest/restaurants/1000/vote`
+`curl -s -X POST -d '{}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting/rest/restaurants/1000/vote --user user1@yandex.ru:password`

@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.util.List;
 
 import static com.newsirius.voting.RestaurantTestData.*;
+import static com.newsirius.voting.UserTestData.USER1;
 import static com.newsirius.voting.VoteTestData.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -34,19 +35,21 @@ public class CommonRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void getRestaurantsWithRating() throws Exception {
-       ResultActions actions = mockMvc.perform(get(REST_URL))
+        ResultActions actions = mockMvc.perform(get(REST_URL)
+                .with(TestUtil.userHttpBasic(USER1)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(TestUtil.contentJson(RESTAURANTS_CURRENT_DAY));
 
-       List<VoteRatingEntity> ratings = VoteTestData.getRatings(TestUtil.readFromJsonToList(actions, Restaurant.class));
-       VoteTestData.assertMatch(ratings, RATINGS);
+        List<VoteRatingEntity> ratings = VoteTestData.getRatings(TestUtil.readFromJsonToList(actions, Restaurant.class));
+        VoteTestData.assertMatch(ratings, RATINGS);
     }
 
     @Test
     public void getRestaurantWithRatingAndMenu() throws Exception {
-        ResultActions actions = mockMvc.perform(get(REST_URL + RESTAURANT1_ID))
+        ResultActions actions = mockMvc.perform(get(REST_URL + RESTAURANT1_ID)
+                .with(TestUtil.userHttpBasic(USER1)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -64,6 +67,7 @@ public class CommonRestControllerTest extends AbstractControllerTest {
         //We need fake vote time before 11:00 am
         timeClock.setFakeTime(true);
         mockMvc.perform(post(REST_URL + RESTAURANT2.getId() + "/vote")
+                .with(TestUtil.userHttpBasic(USER1))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())

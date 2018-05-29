@@ -1,10 +1,13 @@
 package com.newsirius.voting;
 
+import com.newsirius.voting.model.User;
 import com.newsirius.voting.web.json.JsonUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -35,5 +38,9 @@ public class TestUtil {
             result.add(JsonUtil.readValue(jsonArray.getString(i), clazz));
         }
         return result;
+    }
+
+    public static RequestPostProcessor userHttpBasic(User user) {
+        return SecurityMockMvcRequestPostProcessors.httpBasic(user.getEmail(), user.getPassword());
     }
 }

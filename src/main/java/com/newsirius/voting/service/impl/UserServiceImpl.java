@@ -1,15 +1,18 @@
 package com.newsirius.voting.service.impl;
 
+import com.newsirius.voting.AuthorizedUser;
 import com.newsirius.voting.model.User;
 import com.newsirius.voting.repository.users.UserRepository;
 import com.newsirius.voting.service.UserService;
 import com.newsirius.voting.util.ValidationUtil;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -40,5 +43,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll() {
         return userRepository.getAll();
+    }
+
+    @Override
+    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.getByEmail(email);
+        if  (user == null)  {
+            throw new UsernameNotFoundException("User with email " + email + " not found");
+        }
+        return new AuthorizedUser(user);
     }
 }
