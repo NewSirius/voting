@@ -35,8 +35,7 @@ public class CommonRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void getRestaurantsWithRating() throws Exception {
-        ResultActions actions = mockMvc.perform(get(REST_URL)
-                .with(TestUtil.userHttpBasic(USER1)))
+        ResultActions actions = mockMvc.perform(get(REST_URL))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -48,8 +47,7 @@ public class CommonRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void getRestaurantWithRatingAndMenu() throws Exception {
-        ResultActions actions = mockMvc.perform(get(REST_URL + RESTAURANT1_ID)
-                .with(TestUtil.userHttpBasic(USER1)))
+        ResultActions actions = mockMvc.perform(get(REST_URL + RESTAURANT1_ID))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

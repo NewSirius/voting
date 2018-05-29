@@ -32,10 +32,10 @@ This project with the embedded HSQLDB base.
 `curl -s http://localhost:8080/voting/rest/admin/restaurants --user admin@gmail.com:admin`
 
 * #####Get restaurants with rating for current date (sort by rating and name fields)
-`curl -s http://localhost:8080/voting/rest/restaurants --user user1@yandex.ru:password`
+`curl -s http://localhost:8080/voting/rest/restaurants`
 
 * #####Get restaurant with rating and menu for current day
-`curl -s http://localhost:8080/voting/rest/restaurants/1000 --user user1@yandex.ru:password`
+`curl -s http://localhost:8080/voting/rest/restaurants/1000`
 
 * #####Create a new restaurant
 `curl -s -X POST -d '{"name": "NewRestaurant"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting/rest/admin/restaurants --user admin@gmail.com:admin`
