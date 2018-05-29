@@ -1,4 +1,4 @@
-#### Task
+# Voting system application
 
 Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) **without frontend**.
 
@@ -19,44 +19,53 @@ Each restaurant provides new menu each day.
 
 As a result, provide a link to github repository. It should contain the code, README.md with API documentation and couple curl commands to test it.
 
+##Running Voting Application locally (IntelliJ IDEA + Tomcat)
+To start, use Java 8 or higher with Tomcat 8.5.27 or higher.  
 
-####Remarks
-You need register path variable "VOTING_ROOT" to the root directory of project.
+In IntelliJ IDEA import project from GitHub:  
+`File -> New -> Project from Version Control -> GitHub`
+
+Add Tomcat server (local) in Run/Debug Configurations with Application Context "/voting"  
+You can then access application here: http://localhost:8080/voting/
+
+##Database configuration
+In its default configuration, Voting Application uses an in-memory database (HSQLDB) which gets populated at startup with data.
+
+##Remarks
+You need register environment variable "VOTING_ROOT" to the root directory of project.
 This is necessary for generating log files in root project folder.
 
-This project with the embedded HSQLDB base.
+## Curl Commands
 
-#### Curl Commands
-
-* #####Get all restaurants
+* ####Get all restaurants
 `curl -s http://localhost:8080/voting/rest/admin/restaurants --user admin@gmail.com:admin`
 
-* #####Get restaurants with rating for current date (sort by rating and name fields)
+* ####Get restaurants with rating for current date (sort by rating and name fields)
 `curl -s http://localhost:8080/voting/rest/restaurants`
 
-* #####Get restaurant with rating and menu for current day
+* ####Get restaurant with rating and menu for current day
 `curl -s http://localhost:8080/voting/rest/restaurants/1000`
 
-* #####Create a new restaurant
+* ####Create a new restaurant
 `curl -s -X POST -d '{"name": "NewRestaurant"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting/rest/admin/restaurants --user admin@gmail.com:admin`
 
-* #####Delete the restaurant (with id 1000)
+* ####Delete the restaurant (with id 1000)
 `curl -s -X DELETE http://localhost:8080/voting/rest/admin/restaurants/1000 --user admin@gmail.com:admin`
  
-* #####Create dishes (for restaurant with id 1001)
+* ####Create dishes (for restaurant with id 1001)
 `curl -s -X POST -d '{"name": "NewDish", "price": 299}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting/rest/admin/restaurants/1001/dishes --user admin@gmail.com:admin`
   
-* #####Get users
+* ####Get users
 `curl -s http://localhost:8080/voting/rest/admin/users --user admin@gmail.com:admin`
   
-* #####Get user (with id 1000)
+* ####Get user (with id 1000)
 `curl -s http://localhost:8080/voting/rest/admin/users/1000 --user admin@gmail.com:admin`
    
-* #####Create a new user
+* ####Create a new user
 `curl -s -X POST -d '{"name": "NewUser", "password": "user123", "email": "newuser@email.com"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting/rest/admin/users --user admin@gmail.com:admin`
 
-* #####Delete user (with id 1000)
+* ####Delete user (with id 1000)
 `curl -s -X DELETE http://localhost:8080/voting/rest/admin/users/1000 --user admin@gmail.com:admin`
 
-* #####Vote for the restaurant's menu (with restaurantId 1000)
+* ####Vote for the restaurant's menu (with restaurantId 1000)
 `curl -s -X POST -d '{}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voting/rest/restaurants/1000/vote --user user1@yandex.ru:password`

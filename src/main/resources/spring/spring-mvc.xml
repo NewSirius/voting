@@ -9,7 +9,6 @@
 
     <bean class="com.newsirius.voting.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
 
-    <!-- serve static resources (*.html, ...) from src/main/webapp/ -->
     <mvc:default-servlet-handler/>
 
     <context:component-scan base-package="com.newsirius.**.web"/>
