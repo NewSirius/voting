@@ -9,7 +9,7 @@ import java.time.LocalTime;
 public class ValidationUtil {
 
     public static final LocalDateTime START_DATETIME_FOR_VOTE = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
-    public static final LocalDateTime END_DATETIME_FOR_VOTE = LocalDateTime.of(LocalDate.now(), LocalTime.of(16,0,0));
+    public static final LocalDateTime END_DATETIME_FOR_VOTE = LocalDateTime.of(LocalDate.now(), LocalTime.of(11,0,0));
     private static final LocalTime END_TIME_FOR_VOTE = END_DATETIME_FOR_VOTE.toLocalTime();
 
     public static boolean checkVoteTime(LocalDateTime localDateTime)   {

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DishService {
 
-    Dish save(Dish dish, int restaurantId);
+    Dish saveWithCheckRating(Dish dish, int restaurantId);
 
     List<Dish> getMenuCurrentDay(int restaurantId);
 }

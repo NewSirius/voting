@@ -18,9 +18,9 @@ public class VoteRatingServiceTest extends  AbstractBaseServiceTest  {
     private VoteRatingService voteRatingService;
 
     @Test
-    public void save() {
+    public void saveUserVoteAndRestaurantRating() {
         VoteRatingEntity expected = new VoteRatingEntity(null, RESTAURANT4, 3, VOTE_TIME.toLocalDate());
-        VoteRatingEntity actual = voteRatingService.save(RESTAURANT4.getId(), USER_ID, VOTE_TIME);
+        VoteRatingEntity actual = voteRatingService.saveUserVoteAndRestaurantRating(RESTAURANT4.getId(), USER_ID, VOTE_TIME);
         expected.setId(actual.getId());
         assertMatch(actual, expected);
     }

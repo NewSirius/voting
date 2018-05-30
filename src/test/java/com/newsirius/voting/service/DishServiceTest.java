@@ -17,9 +17,9 @@ public class DishServiceTest extends AbstractBaseServiceTest {
     DishService dishService;
 
     @Test
-    public void save() {
+    public void saveWithCheckRating() {
         Dish expected = new Dish(null, "Супчик", BigDecimal.valueOf(299), LocalDate.now());
-        Dish created = dishService.save(expected, RESTAURANT1_ID);
+        Dish created = dishService.saveWithCheckRating(expected, RESTAURANT1_ID);
         created.setId(created.getId());
         DishTestData.assertMatch(dishService.getMenuCurrentDay(RESTAURANT1_ID), DISH1, DISH2, DISH3, expected);
     }

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public interface VoteRatingService {
 
-    VoteRatingEntity save(int restaurantId, int userId, LocalDateTime dateTime);
+    VoteRatingEntity saveUserVoteAndRestaurantRating(int restaurantId, int userId, LocalDateTime dateTime);
 
     VoteRatingEntity getByRestaurantIdCurrentDate(int restaurantId);
 }

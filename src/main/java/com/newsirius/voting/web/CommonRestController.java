@@ -59,7 +59,7 @@ public class CommonRestController {
 
         if (ValidationUtil.checkVoteTime(voteLocalDateTime)) {
             int userId = AuthorizedUser.id();
-           return voteRatingService.save(restaurantId, userId, voteLocalDateTime);
+           return voteRatingService.saveUserVoteAndRestaurantRating(restaurantId, userId, voteLocalDateTime);
         } else {
             throw new IllegalStateException("Time is up");
         }
