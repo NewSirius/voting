@@ -75,4 +75,15 @@ public class CommonRestControllerTest extends AbstractControllerTest {
         VoteTestData.assertMatch(voteRatingService.getByRestaurantIdCurrentDate(RESTAURANT3.getId()), RATING3_AFTER_DEC);
         timeClock.setFakeTime(false);
     }
+
+    @Test
+    public void saveVoteUnauth() throws Exception {
+        //We need fake vote time before 11:00 am
+        timeClock.setFakeTime(true);
+        mockMvc.perform(post(REST_URL + RESTAURANT2.getId() + "/vote")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isUnauthorized());
+        timeClock.setFakeTime(false);
+    }
 }

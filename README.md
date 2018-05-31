@@ -32,17 +32,29 @@ You can then access application here: <http://localhost:8080/voting/>
 In its default configuration, Voting Application uses an in-memory database (HSQLDB) which gets populated at startup with data.
 
 ## Description
-Anybody users (anonymous and logged) can:
-- get list of restaurants with rating current day;
-- get restaurant with rating and menu current day;
- 
-Logged users can:
-- vote for the restaurant and revote until 11:00 am same day.
 
 Logged admins can
 - create, get restaurants;
-- create dishes;
+- create dishes;  
+`If this is the first dish of the restaurant for the current day, then a restaurant rating is created for the current day with a value of zero`
 - create, get, delete users.
+
+Anybody users (anonymous and logged) can:
+- get list of restaurants with rating >= 0 current day;
+- get restaurant with rating and menu current day;
+ 
+Logged users can:
+- vote for the restaurant and revote until 11:00 am same day.  
+    - if this is the first user voting current day:  
+      -- check vote time;  
+      -- increment restaurant rating;  
+      -- save user vote.  
+    - else:  
+      -- check vote time;  
+      -- check the vote for the same restaurant;  
+      -- decrement rating for the "old" restaurant;  
+      -- increment rating for the "new" restaurant;  
+      -- merge user vote.
 
 
 Embedded accounts in application:  

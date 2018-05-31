@@ -3,6 +3,7 @@ package com.newsirius.voting.service.impl;
 import com.newsirius.voting.model.Restaurant;
 import com.newsirius.voting.repository.restaurants.CrudRestaurantRepository;
 import com.newsirius.voting.service.RestaurantService;
+import com.newsirius.voting.util.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -19,7 +20,6 @@ public class RestaurantServiceImpl implements RestaurantService {
         this.restaurantRepository = restaurantRepository;
     }
 
-
     @Override
     public Restaurant save(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
@@ -27,12 +27,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public void delete(int id) {
-        checkNotFoundWithId(restaurantRepository.delete(id), id);
+    public void delete(int id) throws NotFoundException {
+        checkNotFoundWithId(restaurantRepository.delete(id) != 0, id);
     }
 
     @Override
-    public Restaurant getByIdWithRatingAndMenu(int id) {
+    public Restaurant getByIdWithRatingAndMenu(int id) throws NotFoundException {
         return checkNotFoundWithId(restaurantRepository.getByIdWithRatingAndMenu(id), id);
     }
 

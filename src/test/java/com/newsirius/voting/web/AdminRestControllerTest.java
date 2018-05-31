@@ -1,7 +1,6 @@
 package com.newsirius.voting.web;
 
 import com.newsirius.voting.DishTestData;
-import com.newsirius.voting.TestUtil;
 import com.newsirius.voting.UserTestData;
 import com.newsirius.voting.model.Dish;
 import com.newsirius.voting.model.Restaurant;
@@ -76,6 +75,14 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    public void deleteRestaurantNotFound() throws Exception {
+        mockMvc.perform(delete(REST_URL + "restaurants/" + 888)
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isUnprocessableEntity());
+
+    }
+
+    @Test
     public void createDishCurrentDay() throws Exception {
         DishTo expected = new DishTo("Супчик", BigDecimal.valueOf(299));
         ResultActions actions = mockMvc.perform(post(REST_URL + "restaurants/" + RESTAURANT1_ID + "/dishes/")
@@ -109,6 +116,22 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    public void getUserNotFound() throws Exception {
+        mockMvc.perform(get(REST_URL + "/users/" + 888)
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andDo(print());
+    }
+
+    @Test
+    public void getUserUnauth() throws Exception {
+        mockMvc.perform(get(REST_URL + "/users/" + USER_ID))
+                .andExpect(status().isUnauthorized())
+                .andDo(print());
+    }
+
+    @Test
     public void createUser() throws Exception {
         UserTo expected = new UserTo("Vasya", "vasya@google.com", "12345");
 
@@ -129,5 +152,13 @@ public class AdminRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isNoContent());
 
         assertMatch(userService.getAll(), ADMIN, USER2, USER3, USER4, USER5, USER6);
+    }
+
+    @Test
+    public void deleteUserNotFound() throws Exception {
+        mockMvc.perform(delete(REST_URL + "users/" + 888)
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isUnprocessableEntity())
+                .andDo(print());
     }
 }

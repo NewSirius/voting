@@ -3,6 +3,7 @@ package com.newsirius.voting.service;
 import com.newsirius.voting.DishTestData;
 import com.newsirius.voting.VoteTestData;
 import com.newsirius.voting.model.Restaurant;
+import com.newsirius.voting.util.exception.NotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,12 +32,22 @@ public class RestaurantServiceTest extends  AbstractBaseServiceTest {
         assertMatch(restaurantService.getAll(), RESTAURANT2, RESTAURANT3, RESTAURANT4, RESTAURANT5, RESTAURANT6);
     }
 
+    @Test(expected = NotFoundException.class)
+    public void deleteNotFound() throws Exception {
+        restaurantService.delete(888);
+    }
+
     @Test
     public void getByIdWithRatingAndMenu() {
         Restaurant actual = restaurantService.getByIdWithRatingAndMenu(1002);
         assertMatch(actual, RESTAURANT3);
         VoteTestData.assertMatch(actual.getVoteRating(), RATING3);
         DishTestData.assertMatch(actual.getDishes(), DishTestData.DISH7, DishTestData.DISH8, DishTestData.DISH9, DishTestData.DISH10);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void getByIdWithRatingAndMenuNotFound() {
+        restaurantService.getByIdWithRatingAndMenu(888);
     }
 
     @Test

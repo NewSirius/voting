@@ -5,6 +5,7 @@ import com.newsirius.voting.model.User;
 import com.newsirius.voting.repository.users.UserRepository;
 import com.newsirius.voting.service.UserService;
 import com.newsirius.voting.util.ValidationUtil;
+import com.newsirius.voting.util.exception.NotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -26,17 +27,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(int id) throws NotFoundException {
       ValidationUtil.checkNotFoundWithId(userRepository.delete(id), id);
     }
 
     @Override
-    public User get(int id) {
+    public User get(int id) throws NotFoundException {
         return ValidationUtil.checkNotFoundWithId(userRepository.get(id), id);
     }
 
     @Override
-    public User getByEmail(String email) {
+    public User getByEmail(String email) throws NotFoundException {
         return ValidationUtil.checkNotFound(userRepository.getByEmail(email), email);
     }
 
