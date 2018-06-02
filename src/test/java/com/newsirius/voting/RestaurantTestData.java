@@ -21,7 +21,7 @@ public class RestaurantTestData {
 
 
     public static final List<Restaurant> RESTAURANTS = Arrays.asList(RESTAURANT1, RESTAURANT2, RESTAURANT3, RESTAURANT4, RESTAURANT5, RESTAURANT6);
-    public static final List<Restaurant> RESTAURANTS_CURRENT_DAY = Arrays.asList(RESTAURANT3, RESTAURANT4, RESTAURANT1, RESTAURANT2);
+    public static final List<Restaurant> RESTAURANTS_CURRENT_DAY = Arrays.asList(RESTAURANT1, RESTAURANT2, RESTAURANT3, RESTAURANT4);
 
     public static void assertMatch(Restaurant actual, Restaurant expected) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, "voteRating", "voteUserEntity", "dishes");

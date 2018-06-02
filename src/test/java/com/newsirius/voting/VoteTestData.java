@@ -30,7 +30,7 @@ public class VoteTestData {
 
     public static final LocalDateTime VOTE_TIME = LocalDateTime.of(LocalDate.now(), LocalTime.of(10,15,0));
 
-    public static final List<VoteRatingEntity> RATINGS = Arrays.asList(RATING3, RATING4, RATING1, RATING2);
+    public static final List<VoteRatingEntity> RATINGS = Arrays.asList(RATING1, RATING2, RATING3, RATING4);
 
 
     public static void assertMatch(VoteRatingEntity actual, VoteRatingEntity expected) {
