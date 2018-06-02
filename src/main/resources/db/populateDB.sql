@@ -11,13 +11,13 @@ ALTER SEQUENCE vote_rating_history_seq RESTART WITH 1000;
 ALTER SEQUENCE vote_user_history_seq RESTART WITH 1000;
 
 INSERT INTO users (name, email, password) VALUES
-  ('User1', 'user1@yandex.ru', 'password'),
-  ('Admin', 'admin@gmail.com', 'admin'),
-  ('User2', 'user2@yandex.ru', 'password'),
-  ('User3', 'user3@yandex.ru', 'password'),
-  ('User4', 'user4@yandex.ru', 'password'),
-  ('User5', 'user5@yandex.ru', 'password'),
-  ('User6', 'user6@yandex.ru', 'password');
+  ('User1', 'user1@yandex.ru', '{noop}password'),
+  ('Admin', 'admin@gmail.com', '{noop}admin'),
+  ('User2', 'user2@yandex.ru', '{noop}password'),
+  ('User3', 'user3@yandex.ru', '{noop}password'),
+  ('User4', 'user4@yandex.ru', '{noop}password'),
+  ('User5', 'user5@yandex.ru', '{noop}password'),
+  ('User6', 'user6@yandex.ru', '{noop}password');
 
 INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER', 1000),

@@ -1,5 +1,6 @@
 package com.newsirius.voting.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class User {
     private String email;
 
     @Column(name = "password")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
@@ -30,6 +32,7 @@ public class User {
 
     @Column(name = "registered", columnDefinition = "timestamp default now()")
     @NotNull
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date registered = new Date();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")

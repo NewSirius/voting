@@ -4,10 +4,12 @@ import com.newsirius.voting.AuthorizedUser;
 import com.newsirius.voting.model.User;
 import com.newsirius.voting.repository.users.UserRepository;
 import com.newsirius.voting.service.UserService;
+import com.newsirius.voting.util.Utils;
 import com.newsirius.voting.util.ValidationUtil;
 import com.newsirius.voting.util.exception.NotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,19 +18,21 @@ import java.util.List;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public User save(User user) {
-        return ValidationUtil.checkNotFoundWithId(userRepository.save(user), user.getId());
+        return ValidationUtil.checkNotFoundWithId(userRepository.save(Utils.encodeUserPass(user, passwordEncoder)), user.getId());
     }
 
     @Override
     public void delete(int id) throws NotFoundException {
-      ValidationUtil.checkNotFoundWithId(userRepository.delete(id), id);
+        ValidationUtil.checkNotFoundWithId(userRepository.delete(id), id);
     }
 
     @Override
@@ -49,7 +53,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.getByEmail(email);
-        if  (user == null)  {
+        if (user == null) {
             throw new UsernameNotFoundException("User with email " + email + " not found");
         }
         return new AuthorizedUser(user);

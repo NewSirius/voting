@@ -7,6 +7,7 @@ import com.newsirius.voting.model.User;
 import com.newsirius.voting.to.DishTo;
 import com.newsirius.voting.to.RestaurantTo;
 import com.newsirius.voting.to.UserTo;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.EnumSet;
@@ -24,6 +25,12 @@ public class Utils {
 
     public static User createNewUserFromTo(UserTo userTo)   {
         return new User(null, userTo.getName(), userTo.getEmail().toLowerCase(), userTo.getPassword(), EnumSet.of(Role.ROLE_USER));
+    }
+
+    public static User encodeUserPass(User user, PasswordEncoder encoder)   {
+        String pass = user.getPassword();
+        user.setPassword(encoder.encode(pass));
+        return user;
     }
 
     public static Restaurant createNewRestaurantFromTo(RestaurantTo restaurantTo)   {
