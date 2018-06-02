@@ -27,9 +27,10 @@ public class Utils {
         return new User(null, userTo.getName(), userTo.getEmail().toLowerCase(), userTo.getPassword(), EnumSet.of(Role.ROLE_USER));
     }
 
-    public static User encodeUserPass(User user, PasswordEncoder encoder)   {
+    public static User prepareCreateUser(User user, PasswordEncoder encoder)   {
         String pass = user.getPassword();
         user.setPassword(encoder.encode(pass));
+        user.setEmail(user.getEmail().toLowerCase());
         return user;
     }
 

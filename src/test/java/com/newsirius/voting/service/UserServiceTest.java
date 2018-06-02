@@ -27,7 +27,7 @@ public class UserServiceTest extends AbstractBaseServiceTest {
 
     @Test(expected = DataAccessException.class)
     public void duplicateMailCreate() throws Exception {
-        userService.save(new User(null, "Duplicate", "user1@yandex.ru", "newPass", EnumSet.of(Role.ROLE_USER)));
+        userService.save(new User(null, "Duplicate", "USER1@YANDEX.RU", "newPass", EnumSet.of(Role.ROLE_USER)));
     }
 
     @Test

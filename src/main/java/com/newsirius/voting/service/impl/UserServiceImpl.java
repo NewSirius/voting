@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User save(User user) {
-        return ValidationUtil.checkNotFoundWithId(userRepository.save(Utils.encodeUserPass(user, passwordEncoder)), user.getId());
+        return ValidationUtil.checkNotFoundWithId(userRepository.save(Utils.prepareCreateUser(user, passwordEncoder)), user.getId());
     }
 
     @Override
