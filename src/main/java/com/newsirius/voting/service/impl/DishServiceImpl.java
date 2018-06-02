@@ -34,7 +34,7 @@ public class DishServiceImpl implements DishService {
         dish.setRestaurant(restaurantRepository.getOne(restaurantId));
         LocalDate date = dish.getDate();
 
-        //create a zero rating for the restaurant, if it is the first dish for the current day
+        //create a zero rating for the restaurant, if it is the first dish for this restaurant for the current day
         if (voteRatingEntityRepository.getByRestaurantIdAndLocalDate(restaurantId, date) == null) {
             VoteRatingEntity voteRatingEntity = new VoteRatingEntity(null, dish.getRestaurant(), 0, date);
             voteRatingEntityRepository.save(voteRatingEntity);

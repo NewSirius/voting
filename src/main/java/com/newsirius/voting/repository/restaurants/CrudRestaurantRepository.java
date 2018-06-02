@@ -34,7 +34,7 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
     @Query("SELECT DISTINCT r " +
             "FROM Restaurant r " +
             "JOIN FETCH r.voteRating ra " +
-            "WHERE ra.localDate=current_date order by ra.rating DESC, r.name ASC")
+            "WHERE ra.localDate=current_date order by r.name ASC")
     List<Restaurant> getAllWithRatingCurrentDay();
 
     @SuppressWarnings("JpaQlInspection")

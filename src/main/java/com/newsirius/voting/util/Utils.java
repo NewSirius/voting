@@ -14,9 +14,9 @@ import java.util.EnumSet;
 
 public class Utils {
 
-    public static Dish createNewDishFromTo(DishTo dishTo) {
+    public static Dish createNewDishFromTo(DishTo dishTo, LocalDate date) {
         Dish dish = new Dish();
-        dish.setDate(LocalDate.now());
+        dish.setDate(date);
         dish.setName(dishTo.getName());
         dish.setPrice(dishTo.getPrice());
 

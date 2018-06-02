@@ -21,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.newsirius.voting.util.Utils.createNewRestaurantFromTo;
@@ -72,7 +73,7 @@ public class AdminRestController {
     @PostMapping(value = "/restaurants/{id}/dishes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Dish> createDishCurrentDay(@PathVariable("id") int restaurantId, @Valid @RequestBody DishTo dishTo) {
         log.info("created Dish {} for restaurant_id {}", dishTo, restaurantId);
-        Dish created = dishService.saveWithCheckRating(Utils.createNewDishFromTo(dishTo), restaurantId);
+        Dish created = dishService.saveWithCheckRating(Utils.createNewDishFromTo(dishTo, LocalDate.now()), restaurantId);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/restaurants/{id}/dishes")
