@@ -11,8 +11,10 @@ import com.newsirius.voting.service.UserService;
 import com.newsirius.voting.to.DishTo;
 import com.newsirius.voting.to.UserTo;
 import com.newsirius.voting.web.json.JsonUtil;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -40,6 +42,14 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    private CacheManager cacheManager;
+
+    @Before
+    public void setUp() throws Exception {
+        cacheManager.getCache("users").clear();
+    }
 
     @Test
     public void getAllRestaurants() throws Exception {

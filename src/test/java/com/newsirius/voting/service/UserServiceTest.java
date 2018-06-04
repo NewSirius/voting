@@ -3,8 +3,10 @@ package com.newsirius.voting.service;
 import com.newsirius.voting.model.Role;
 import com.newsirius.voting.model.User;
 import com.newsirius.voting.util.exception.NotFoundException;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
 
 import java.util.EnumSet;
@@ -16,6 +18,14 @@ public class UserServiceTest extends AbstractBaseServiceTest {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    private CacheManager cacheManager;
+
+    @Before
+    public void setUp() throws Exception {
+        cacheManager.getCache("users").clear();
+    }
 
     @Test
     public void save() {

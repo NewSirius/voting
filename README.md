@@ -61,9 +61,9 @@ Embedded accounts in application:
 Username: user1@yandex.ru Password: "password" (User role)  
 Username: admin@gmail.com Password: "admin" (Administrator role)
 
-## Remarks
-You need register environment variable "VOTING_ROOT" to the root directory of project.
+P.S. You need register environment variable "VOTING_ROOT" to the root directory of project.
 This is necessary for generating log files in root project folder.
+
 
 ## Curl Commands
 

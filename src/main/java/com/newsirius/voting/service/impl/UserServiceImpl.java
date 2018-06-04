@@ -7,6 +7,8 @@ import com.newsirius.voting.service.UserService;
 import com.newsirius.voting.util.Utils;
 import com.newsirius.voting.util.ValidationUtil;
 import com.newsirius.voting.util.exception.NotFoundException;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,11 +28,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @CacheEvict(value = "users", allEntries = true)
     public User save(User user) {
         return ValidationUtil.checkNotFoundWithId(userRepository.save(Utils.prepareCreateUser(user, passwordEncoder)), user.getId());
     }
 
     @Override
+    @CacheEvict(value = "users", allEntries = true)
     public void delete(int id) throws NotFoundException {
         ValidationUtil.checkNotFoundWithId(userRepository.delete(id), id);
     }
@@ -46,6 +50,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Cacheable("users")
     public List<User> getAll() {
         return userRepository.getAll();
     }
