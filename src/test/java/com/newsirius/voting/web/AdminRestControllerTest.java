@@ -33,6 +33,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class AdminRestControllerTest extends AbstractControllerTest {
     private static final String REST_URL = AdminRestController.REST_URL + "/";
+    private static final String REST_URL_USERS = AdminRestController.REST_URL + "/users";
+    private static final String REST_URL_RESTAURANTS = AdminRestController.REST_URL + "/restaurants";
 
     @Autowired
     RestaurantService restaurantService;
@@ -53,7 +55,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void getAllRestaurants() throws Exception {
-        mockMvc.perform(get(REST_URL + "restaurants")
+        mockMvc.perform(get(REST_URL_RESTAURANTS)
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -64,7 +66,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     @Test
     public void createRestaurant() throws Exception {
         Restaurant expected = new Restaurant(null, "Restaurant7");
-        ResultActions actions = mockMvc.perform(post(REST_URL + "restaurants")
+        ResultActions actions = mockMvc.perform(post(REST_URL_RESTAURANTS)
                 .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected))).andDo(print());
@@ -77,7 +79,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void deleteRestaurant() throws Exception {
-        mockMvc.perform(delete(REST_URL + "restaurants/" + RESTAURANT1_ID)
+        mockMvc.perform(delete(REST_URL_RESTAURANTS + "/" + RESTAURANT1_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isNoContent());
 
@@ -86,7 +88,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void deleteRestaurantNotFound() throws Exception {
-        mockMvc.perform(delete(REST_URL + "restaurants/" + 888)
+        mockMvc.perform(delete(REST_URL_RESTAURANTS + "/" + 888)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isUnprocessableEntity());
 
@@ -95,7 +97,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     @Test
     public void createDishCurrentDay() throws Exception {
         DishTo expected = new DishTo("Супчик", BigDecimal.valueOf(299));
-        ResultActions actions = mockMvc.perform(post(REST_URL + "restaurants/" + RESTAURANT1_ID + "/dishes/")
+        ResultActions actions = mockMvc.perform(post(REST_URL_RESTAURANTS + "/" + RESTAURANT1_ID + "/dishes/")
                 .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected)));
@@ -107,7 +109,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void getUsers() throws Exception {
-        mockMvc.perform(get(REST_URL + "/users")
+        mockMvc.perform(get(REST_URL_USERS)
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -117,7 +119,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void getUser() throws Exception {
-        mockMvc.perform(get(REST_URL + "/users/" + USER_ID)
+        mockMvc.perform(get(REST_URL_USERS + "/" + USER_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -127,7 +129,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void getUserNotFound() throws Exception {
-        mockMvc.perform(get(REST_URL + "/users/" + 888)
+        mockMvc.perform(get(REST_URL_USERS + "/" + 888)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -136,7 +138,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void getUserUnauth() throws Exception {
-        mockMvc.perform(get(REST_URL + "/users/" + USER_ID))
+        mockMvc.perform(get(REST_URL_USERS + "/" + USER_ID))
                 .andExpect(status().isUnauthorized())
                 .andDo(print());
     }
@@ -145,7 +147,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     public void createUser() throws Exception {
         UserTo expected = new UserTo("Vasya", "vasya@google.com", "12345");
 
-        ResultActions actions = mockMvc.perform(post(REST_URL + "users")
+        ResultActions actions = mockMvc.perform(post(REST_URL_USERS)
                 .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected)));
@@ -156,7 +158,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void deleteUser() throws Exception {
-        mockMvc.perform(delete(REST_URL + "users/" + USER1.getId())
+        mockMvc.perform(delete(REST_URL_USERS + "/" + USER1.getId())
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
@@ -166,7 +168,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void deleteUserNotFound() throws Exception {
-        mockMvc.perform(delete(REST_URL + "users/" + 888)
+        mockMvc.perform(delete(REST_URL_USERS + "/" + 888)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());

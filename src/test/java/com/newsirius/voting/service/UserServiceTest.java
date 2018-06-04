@@ -42,7 +42,7 @@ public class UserServiceTest extends AbstractBaseServiceTest {
 
     @Test
     public void delete() {
-        userService.delete(1000);
+        userService.delete(USER1.getId());
         assertMatch(userService.getAll(), ADMIN, USER2, USER3, USER4, USER5, USER6);
     }
 
@@ -53,7 +53,7 @@ public class UserServiceTest extends AbstractBaseServiceTest {
 
     @Test
     public void get() {
-        User actual = userService.get(1000);
+        User actual = userService.get(USER1.getId());
         assertMatch(actual, USER1);
     }
 

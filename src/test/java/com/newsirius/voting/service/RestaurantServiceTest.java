@@ -28,7 +28,7 @@ public class RestaurantServiceTest extends  AbstractBaseServiceTest {
 
     @Test
     public void delete() {
-        restaurantService.delete(1000);
+        restaurantService.delete(RESTAURANT1.getId());
         assertMatch(restaurantService.getAll(), RESTAURANT2, RESTAURANT3, RESTAURANT4, RESTAURANT5, RESTAURANT6);
     }
 
@@ -39,7 +39,7 @@ public class RestaurantServiceTest extends  AbstractBaseServiceTest {
 
     @Test
     public void getByIdWithRatingAndMenu() {
-        Restaurant actual = restaurantService.getByIdWithRatingAndMenu(1002);
+        Restaurant actual = restaurantService.getByIdWithRatingAndMenu(RESTAURANT3.getId());
         assertMatch(actual, RESTAURANT3);
         VoteTestData.assertMatch(actual.getVoteRating(), RATING3);
         DishTestData.assertMatch(actual.getDishes(), DishTestData.DISH7, DishTestData.DISH8, DishTestData.DISH9, DishTestData.DISH10);
