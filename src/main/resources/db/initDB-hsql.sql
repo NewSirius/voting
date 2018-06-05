@@ -63,6 +63,8 @@ CREATE TABLE dishes (
   FOREIGN KEY (restaurant_id) REFERENCES restaurants (id)
     ON DELETE CASCADE
 );
+CREATE INDEX dishes_date_idx
+  ON dishes (date, restaurant_id);
 
 CREATE TABLE vote_rating_history
 (
@@ -70,10 +72,11 @@ CREATE TABLE vote_rating_history
   restaurant_id INTEGER NOT NULL,
   date          DATE    DEFAULT current_date,
   rating        INTEGER DEFAULT 0,
-  CONSTRAINT restaurant_date_idx UNIQUE (restaurant_id, date),
   FOREIGN KEY (restaurant_id) REFERENCES restaurants (id)
     ON DELETE CASCADE
 );
+CREATE UNIQUE INDEX rating_unique_date_restaurant_idx
+  ON vote_rating_history (date, restaurant_id);
 
 CREATE TABLE vote_user_history
 (
